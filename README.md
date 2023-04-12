@@ -25,8 +25,7 @@ To start the Black Scorpion toolbox, navigate to the root directory of the proje
 
 python BlackScorpion.py
 
-python
-Copy code
+
 
 ## Contributing
 
