@@ -43,6 +43,6 @@ def Scanner_module(language):
     else:
         timeout = 10
 
-    with open(file_path) as f:
+    with open(file_path,encoding='utf-8') as f:
         subdomains = f.read().splitlines()
         check_subdomains(subdomains, domain, timeout)

@@ -4,20 +4,26 @@ from urllib.parse import urlparse
 from concurrent.futures import ThreadPoolExecutor
 import threading
 import os
+from RandomFunc.generate_random_headers import generate_random_headers
+import warnings
+from urllib3.exceptions import InsecureRequestWarning
+
+warnings.simplefilter('ignore', InsecureRequestWarning)
 
 result_folder = "Result"
 if not os.path.exists(result_folder):
     os.makedirs(result_folder)
 
 
-def check_subdomain(subdomain, domain, results, lock, timeout=10):
+def check_subdomain(subdomain, domain, results, lock, timeout=10,headers=None):
     domain = domain.strip().lower().replace("http://", "").replace("https://", "")
     parser_url = urlparse("http://" + domain)
     domain = parser_url.netloc.split(':')[0]
 
     url = f'http://{subdomain}.{domain}'
     try:
-        r = requests.get(url, timeout=timeout)
+        r = requests.get(url, timeout=timeout,headers=headers,verify=False)
+
         code = r.status_code
         soup = BeautifulSoup(r.content, 'html.parser')
         title = soup.title.string if soup.title else None
@@ -52,14 +58,15 @@ def check_subdomains(subdomains, domain, timeout=10):
     lock = threading.Lock()
 
     with ThreadPoolExecutor() as executor:
-        futures = executor.map(lambda subdomain: check_subdomain(subdomain, domain, results, lock, timeout), subdomains)
+
+        futures = executor.map(lambda subdomain: check_subdomain(subdomain, domain, results, lock, timeout,generate_random_headers()), subdomains)
         for future in futures:
             pass
 
     results.sort(key=lambda x: x['code'])
     result_file = os.path.join(result_folder, "subdomain.txt")
 
-    with open(result_file, "a") as f:
+    with open(result_file,encoding='utf-8' "a") as f:
         f.write(f'[+] Domain: {domain} \n')
         for result in results:
             url = result['url']

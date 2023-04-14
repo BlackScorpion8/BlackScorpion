@@ -37,3 +37,5 @@
 [+] Discovered subdomain: http://h5.baidu.com status code: 200 title: 百度 H5
 [+] Discovered subdomain: https://h5.baidu.com status code: 200 title: 百度 H5
 [-] Discovered subdomain: http://admin.baidu.com status code: 502
+[+] Domain: baidu.com 
+[-] Discovered subdomain: http://www.baidu.com status code: 502

@@ -1,5 +1,6 @@
 from Menu.menu import display_menu
 from Module.Scanner_module import Scanner_module
+from Module.Scandir_module import Scandir_module
 from rich.console import Console
 console = Console()
 
@@ -37,6 +38,7 @@ def main():
         choice = display_menu(language)
         switch = {
             "1": Scanner_module,
+            "2": Scandir_module,
             "0": lambda: exit(0)
         }
         if choice in switch:
