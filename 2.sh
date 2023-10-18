@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export payload="allShortcutsEnabled:false"
-
 # 卸载防火墙规则
 echo "卸载防火墙规则..."
 sudo iptables -F
@@ -49,4 +47,4 @@ sudo systemctl enable danted
 echo "检查Dante服务器状态..."
 sudo systemctl status danted
 
-echo "Dante SOCKS5服务器已安装和配置，端口设置为50088
+echo "Dante SOCKS5服务器已安装和配置，端口设置为50088。"
