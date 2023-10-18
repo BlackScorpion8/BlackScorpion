@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export payload="allShortcutsEnabled:false"
+
 # 卸载防火墙规则
 echo "卸载防火墙规则..."
 sudo iptables -F
